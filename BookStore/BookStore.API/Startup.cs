@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using NLog.Extensions.Logging;
 using System;
 using System.IO;
 using System.Reflection;
@@ -49,6 +51,19 @@ namespace BookStore.API
                 o.IncludeXmlComments(xPath);
             });
 
+            services.AddLogging(log =>
+            {
+                log.ClearProviders();
+                log.AddNLog(Configuration);
+            });
+
+            services.AddCors(o =>
+            {
+                o.AddPolicy("BookStorePolicy", builder =>
+                builder.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,6 +82,8 @@ namespace BookStore.API
             }
 
             app.UseHttpsRedirection();
+
+            app.UseCors("BookStorePolicy");
 
             app.UseRouting();
 

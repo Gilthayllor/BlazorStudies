@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace BookStore.API.Controllers
 {
@@ -9,6 +10,12 @@ namespace BookStore.API.Controllers
     [ApiController]
     public class HomeController : ControllerBase
     {
+        private readonly ILogger<HomeController> _logger;
+        public HomeController(ILogger<HomeController> logger)
+        {
+            _logger = logger;
+        }
+
         /// <summary>
         /// Index
         /// </summary>

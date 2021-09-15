@@ -11,11 +11,7 @@
         </member>
         <member name="M:BookStore.API.Controllers.HomeController.Index">
             <summary>
-            Index dasdasdasdasdasdas
-            dasdasdasda
-            dasdasda
-            dsdsd
-            dsdsdsdsd
+            Index
             </summary>
             <returns><see cref="T:System.Int32"/></returns>
         </member>
