@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BookStore.API</name>
+    </assembly>
+    <members>
+        <member name="T:BookStore.API.Controllers.HomeController">
+            <summary>
+            <see cref="T:BookStore.API.Controllers.HomeController"/>
+            </summary>
+        </member>
+        <member name="M:BookStore.API.Controllers.HomeController.Index">
+            <summary>
+            Index dasdasdasdasdasdas
+            dasdasdasda
+            dasdasda
+            dsdsd
+            dsdsdsdsd
+            </summary>
+            <returns><see cref="T:System.Int32"/></returns>
+        </member>
+    </members>
+</doc>
