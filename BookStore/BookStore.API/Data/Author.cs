@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 namespace BookStore.API.Data
 {
     [Table("Authors")]
-    public partial class Author
+    public partial class Author : BaseEntity
     {
-        public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Bio { get; set; }

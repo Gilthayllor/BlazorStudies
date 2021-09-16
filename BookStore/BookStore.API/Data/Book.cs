@@ -3,9 +3,8 @@
 namespace BookStore.API.Data
 {
     [Table("Books")]
-    public partial class Book
+    public partial class Book : BaseEntity
     {
-        public int Id { get; set; }
         public string Title { get; set; }
         public int? Year { get; set; }
         public string Isbn { get; set; }
