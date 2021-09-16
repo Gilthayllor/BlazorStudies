@@ -4,31 +4,38 @@
         <name>BookStore.API</name>
     </assembly>
     <members>
-        <member name="M:BookStore.API.Controllers.AuthorsController.GetAll">
+        <member name="M:BookStore.API.Controllers.AuthorsController.GetAuthors">
             <summary>
             Get all authors.
             </summary>
             <returns></returns>
         </member>
-        <member name="M:BookStore.API.Controllers.AuthorsController.GetById(System.Int32)">
+        <member name="M:BookStore.API.Controllers.AuthorsController.GetAuthorById(System.Int32)">
             <summary>
             Get author by id.
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:BookStore.API.Controllers.AuthorsController.CreateAuthor(BookStore.API.DTOs.AuthorDTO)">
+        <member name="M:BookStore.API.Controllers.AuthorsController.CreateAuthor(BookStore.API.DTOs.AuthorDTOCreate)">
             <summary>
             Create an author and save to database.
             </summary>
             <param name="author"></param>
             <returns></returns>
         </member>
-        <member name="M:BookStore.API.Controllers.AuthorsController.UpdateAuthor(BookStore.API.DTOs.AuthorDTO)">
+        <member name="M:BookStore.API.Controllers.AuthorsController.UpdateAuthor(BookStore.API.DTOs.AuthorDTOUpdate)">
             <summary>
             Update an author.
             </summary>
             <param name="author"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BookStore.API.Controllers.AuthorsController.DeleteAuthor(System.Int32)">
+            <summary>
+            Delete an author.
+            </summary>
+            <param name="id"></param>
             <returns></returns>
         </member>
         <member name="T:BookStore.API.Controllers.HomeController">

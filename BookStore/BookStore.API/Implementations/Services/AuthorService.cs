@@ -3,6 +3,7 @@ using BookStore.API.Contracts.Repositories;
 using BookStore.API.Contracts.Services;
 using BookStore.API.Data;
 using BookStore.API.DTOs;
+using BookStore.API.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -20,7 +21,7 @@ namespace BookStore.API.Implementations.Services
             _mapper = mapper;
         }
 
-        public async Task<AuthorDTO> Create(AuthorDTO entity)
+        public async Task<AuthorDTO> Create(AuthorDTOCreate entity)
         {
             var author = _mapper.Map<Author>(entity);
 
@@ -47,27 +48,22 @@ namespace BookStore.API.Implementations.Services
         {
             if (!await _repository.Exists(id))
             {
-                throw new Exception($"Author with id: {id} not found.");
+                throw new ServiceException($"Author with id: {id} not found.");
             }
 
             return await _repository.Delete(new Author { Id = id });
         }
 
-        public async Task<AuthorDTO> Update(AuthorDTO entity)
+        public async Task<bool> Update(AuthorDTOUpdate entity)
         {
             if (!await _repository.Exists(entity.Id))
             {
-                throw new Exception($"Author with id: {entity.Id} not found.");
+                throw new ServiceException($"Author with id: {entity.Id} not found.");
             }
 
             var author = _mapper.Map<Author>(entity);
 
-            if (await _repository.Update(author))
-            {
-                return entity;
-            }
-
-            return null;
+            return await _repository.Update(author);
         }
     }
 }

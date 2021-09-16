@@ -8,9 +8,9 @@ namespace BookStore.API.Contracts.Services
 {
     public interface IAuthorService
     {
-        Task<AuthorDTO> Create(AuthorDTO entity);
+        Task<AuthorDTO> Create(AuthorDTOCreate entity);
 
-        Task<AuthorDTO> Update(AuthorDTO entity);
+        Task<bool> Update(AuthorDTOUpdate entity);
 
         Task<bool> Remove(int id);
 
