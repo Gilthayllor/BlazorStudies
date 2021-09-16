@@ -1,4 +1,5 @@
 using BookStore.API.Data;
+using BookStore.API.DependencyInjection;
 using BookStore.API.Mappings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -67,6 +68,10 @@ namespace BookStore.API
             });
 
             services.AddAutoMapper(typeof(Maps));
+
+            services.ConfigureRepositoryDependencyInjection();
+
+            services.ConfigureServiceDependencyInjection();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
