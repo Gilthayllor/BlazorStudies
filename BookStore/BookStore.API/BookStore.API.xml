@@ -38,16 +38,45 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="T:BookStore.API.Controllers.HomeController">
+        <member name="M:BookStore.API.Controllers.BooksController.GetBooks">
             <summary>
-            <see cref="T:BookStore.API.Controllers.HomeController"/>
+            Get all books.
             </summary>
+            <returns></returns>
         </member>
-        <member name="M:BookStore.API.Controllers.HomeController.Index">
+        <member name="M:BookStore.API.Controllers.BooksController.GetBookById(System.Int32)">
             <summary>
-            Index
+            Get all books.
             </summary>
-            <returns><see cref="T:System.Int32"/></returns>
+            <returns></returns>
+        </member>
+        <member name="M:BookStore.API.Controllers.BooksController.CreateBook(BookStore.API.DTOs.BookDTOCreate)">
+            <summary>
+            Create an book and save to database.
+            </summary>
+            <param name="book"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BookStore.API.Controllers.BooksController.UpdateBook(BookStore.API.DTOs.BookDTOUpdate)">
+            <summary>
+            Update an book.
+            </summary>
+            <param name="book"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BookStore.API.Controllers.BooksController.DeleteBook(System.Int32)">
+            <summary>
+            Delete an book.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BookStore.API.Controllers.UsersController.Login(BookStore.API.DTOs.UserDTO)">
+            <summary>
+            User login.
+            </summary>
+            <param name="user"></param>
+            <returns></returns>
         </member>
     </members>
 </doc>

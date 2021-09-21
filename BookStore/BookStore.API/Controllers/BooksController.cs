@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using BookStore.API.Contracts.Repositories;
+﻿using BookStore.API.Contracts.Repositories;
 using BookStore.API.Contracts.Services;
 using BookStore.API.DTOs;
 using BookStore.API.Exceptions;
@@ -9,39 +8,37 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BookStore.API.Controllers
 {
-    [ApiController]
     [Route("api/v1/[controller]")]
+    [ApiController]
     [Authorize]
-    public class AuthorsController : ControllerBase
+    public class BooksController : ControllerBase
     {
-        private readonly IAuthorService _authorService;
-        private readonly IMapper _mapper;
-        private readonly ILogger<AuthorsController> _logger;
+        private readonly IBookService _bookService;
+        private readonly ILogger<BooksController> _logger;
 
-        public AuthorsController(IAuthorService authorService, IMapper mapper, ILogger<AuthorsController> logger)
+        public BooksController(IBookService bookService, ILogger<BooksController> logger)
         {
-            _authorService = authorService;
-            _mapper = mapper;
+            _bookService = bookService;
             _logger = logger;
         }
 
         /// <summary>
-        /// Get all authors.
+        /// Get all books.
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [AllowAnonymous]
-        [ProducesResponseType(typeof(IEnumerable<AuthorDTO>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<AuthorDTO>>> GetAuthors()
+        [ProducesResponseType(typeof(IEnumerable<BookDTO>), StatusCodes.Status200OK)]
+        public async Task<ActionResult<IEnumerable<BookDTO>>> GetBooks()
         {
             try
             {
-                var authors = await _authorService.GetAll();
-                return Ok(authors);
+                var books = await _bookService.GetAll();
+                return Ok(books);
             }
             catch (Exception e)
             {
@@ -51,25 +48,22 @@ namespace BookStore.API.Controllers
         }
 
         /// <summary>
-        /// Get author by id.
+        /// Get all books.
         /// </summary>
-        /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}")]
-        [AllowAnonymous]
-        [ProducesResponseType(typeof(AuthorDTO), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<AuthorDTO>> GetAuthorById([FromRoute] int id)
+        [ProducesResponseType(typeof(BookDTO), StatusCodes.Status200OK)]
+        public async Task<ActionResult<BookDTO>> GetBookById([FromRoute] int id)
         {
             try
             {
-                var author = await _authorService.Get(id);
-                if (author == null)
+                var book = await _bookService.Get(id);
+                if(book == null)
                 {
                     return NotFound();
                 }
 
-                return author;
+                return Ok(book);
             }
             catch (Exception e)
             {
@@ -79,15 +73,15 @@ namespace BookStore.API.Controllers
         }
 
         /// <summary>
-        /// Create an author and save to database.
+        /// Create an book and save to database.
         /// </summary>
-        /// <param name="author"></param>
+        /// <param name="book"></param>
         /// <returns></returns>
         [HttpPost]
         [Authorize(Roles = "Administrator")]
-        [ProducesResponseType(typeof(AuthorDTO), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(BookDTO), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<AuthorDTO>> CreateAuthor([FromBody] AuthorDTOCreate author)
+        public async Task<ActionResult<BookDTO>> CreateBook([FromBody] BookDTOCreate book)
         {
             if (!ModelState.IsValid)
             {
@@ -96,8 +90,8 @@ namespace BookStore.API.Controllers
 
             try
             {
-                var newAuthor = await _authorService.Create(author);
-                return CreatedAtAction(nameof(GetAuthorById), new { id = newAuthor.Id }, newAuthor);
+                var newBook = await _bookService.Create(book);
+                return CreatedAtAction(nameof(GetBookById), new { id = newBook.Id }, newBook);
             }
             catch (Exception e)
             {
@@ -107,15 +101,15 @@ namespace BookStore.API.Controllers
         }
 
         /// <summary>
-        /// Update an author.
+        /// Update an book.
         /// </summary>
-        /// <param name="author"></param>
+        /// <param name="book"></param>
         /// <returns></returns>
         [HttpPut]
         [Authorize(Roles = "Administrator")]
-        [ProducesResponseType(typeof(AuthorDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(BookDTOUpdate), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<AuthorDTO>> UpdateAuthor([FromBody] AuthorDTOUpdate author)
+        public async Task<ActionResult<BookDTOUpdate>> UpdateBook([FromBody] BookDTOUpdate book)
         {
             if (!ModelState.IsValid)
             {
@@ -124,10 +118,10 @@ namespace BookStore.API.Controllers
 
             try
             {
-                await _authorService.Update(author);
-                return Ok(author);
+                await _bookService.Update(book);
+                return Ok(book);
             }
-            catch(ServiceException se)
+            catch (ServiceException se)
             {
                 return BadRequest(se.Message);
             }
@@ -139,7 +133,7 @@ namespace BookStore.API.Controllers
         }
 
         /// <summary>
-        /// Delete an author.
+        /// Delete an book.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -147,14 +141,14 @@ namespace BookStore.API.Controllers
         [Authorize(Roles = "Administrator")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> DeleteAuthor([FromRoute] int id)
+        public async Task<ActionResult> DeleteBook([FromRoute] int id)
         {
             try
             {
-                await _authorService.Remove(id);
+                await _bookService.Remove(id);
                 return Ok();
             }
-            catch(ServiceException se)
+            catch (ServiceException se)
             {
                 return BadRequest(se.Message);
             }

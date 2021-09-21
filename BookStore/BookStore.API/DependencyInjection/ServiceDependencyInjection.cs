@@ -1,10 +1,6 @@
 ﻿using BookStore.API.Contracts.Services;
 using BookStore.API.Implementations.Services;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BookStore.API.DependencyInjection
 {
@@ -13,8 +9,8 @@ namespace BookStore.API.DependencyInjection
         public static IServiceCollection ConfigureServiceDependencyInjection(this IServiceCollection services)
         {
             services.AddScoped<IAuthorService, AuthorService>();
-            //services.AddScoped<IAuthorRepository, AuthorRepository>();
-            //services.AddScoped<IBookRepository, BookRepository>();
+            services.AddScoped<IBookService, BookService>();
+            services.AddScoped<IUserservice, UserService>();
 
             return services;
         }
